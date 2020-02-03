@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 global.io = require('socket.io').listen(server);
+io.origins(['*']);
 require('./api/sockets/genericMethods')(io);
 
 application.set('port', process.env.PORT);
