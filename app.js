@@ -7,7 +7,9 @@ const dotenv = require('dotenv');
 const server = require('http').createServer([], application);
 dotenv.config();
 
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 app.use(bodyParser.json());
 
 global.io = require('socket.io').listen(server);
