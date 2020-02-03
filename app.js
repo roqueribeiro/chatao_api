@@ -2,18 +2,20 @@ const express = require('express');
 const application = express();
 const bodyParser = require('body-parser');
 const app = express();
-const cors = require('cors');
 const dotenv = require('dotenv');
 const server = require('http').createServer([], application);
 dotenv.config();
 
-app.use(cors({
-    origin: '*'
-}));
 app.use(bodyParser.json());
+api.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 global.io = require('socket.io').listen(server);
-io.origins(['*']);
 require('./api/sockets/genericMethods')(io);
 
 application.set('port', process.env.PORT);
